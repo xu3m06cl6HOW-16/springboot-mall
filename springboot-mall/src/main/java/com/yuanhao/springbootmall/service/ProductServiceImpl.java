@@ -1,5 +1,6 @@
 package com.yuanhao.springbootmall.service;
 
+import com.yuanhao.springbootmall.constant.ProductCategore;
 import com.yuanhao.springbootmall.dao.ProductDao;
 import com.yuanhao.springbootmall.dto.ProductRequest;
 import com.yuanhao.springbootmall.model.Product;
@@ -15,10 +16,10 @@ public class ProductServiceImpl implements ProductService {
     ProductDao productDao;
 
     @Override
-    public List<Product> getProducts() {
+    public List<Product> getProducts(ProductCategore Categore,String search) {
 
 
-        return productDao.getProducts();
+        return productDao.getProducts(Categore,search);
     }
 
     @Override
