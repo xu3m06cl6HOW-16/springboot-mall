@@ -9,14 +9,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
+@RequestMapping("/products")
 @RestController
 public class ProductController {
 
     @Autowired
     ProductService productService;
 
-    @GetMapping("/products/{productId}")
+
+    @GetMapping
+    public ResponseEntity<List<Product>> getProducts(){
+        List<Product> productList = productService.getProducts();
+
+        return ResponseEntity.status(HttpStatus.OK).body(productList);
+    }
+
+
+    @GetMapping("/{productId}")
     public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
         Product product = productService.getProductById(productId);
 
@@ -27,7 +38,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/products")
+    @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest){
         Integer productId= productService.createProduct(productRequest);
 
@@ -36,7 +47,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
-    @PutMapping("/products/{productId}")
+    @PutMapping("/{productId}")
     public ResponseEntity<Product> updateProduct(@PathVariable Integer productId,
                                                  @RequestBody @Valid ProductRequest productRequest){
 
@@ -51,7 +62,7 @@ public class ProductController {
 
     }
 
-    @DeleteMapping("/products/{productId}")
+    @DeleteMapping("/{productId}")
     public ResponseEntity<?> deleteProduct(@PathVariable Integer productId){
         productService.deleteProductById(productId);
 
