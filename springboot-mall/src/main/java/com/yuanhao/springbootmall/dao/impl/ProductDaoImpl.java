@@ -33,14 +33,7 @@ public class ProductDaoImpl implements ProductDao {
         Map<String,Object> map = new HashMap<>();
 
         //查詢條件
-        if(productQueryParams.getCategory()!=null){
-            sql = sql + " AND category=:category";
-            map.put("category",productQueryParams.getCategory().name());//categore是ENUM類型，要用此方法轉為String
-        }
-        if(productQueryParams.getSearch()!=null){
-            sql = sql + " AND product_name LIKE :search";
-            map.put("search","%" + productQueryParams.getSearch() + "%");
-        }
+        sql=addFilteringSql(sql,map,productQueryParams);
 
         Integer total=namedParameterJdbcTemplate.queryForObject(sql,map,Integer.class);//queryForObject:專門拿來計算count的方法
 
@@ -56,14 +49,7 @@ public class ProductDaoImpl implements ProductDao {
         Map<String,Object> map = new HashMap<>();
 
         //查詢條件
-        if(productQueryParams.getCategory()!=null){
-            sql = sql + " AND category=:category";
-            map.put("category",productQueryParams.getCategory().name());//categore是ENUM類型，要用此方法轉為String
-        }
-        if(productQueryParams.getSearch()!=null){
-            sql = sql + " AND product_name LIKE :search";
-            map.put("search","%" + productQueryParams.getSearch() + "%");
-        }
+        sql=addFilteringSql(sql,map,productQueryParams);
 
         //排序
         sql = sql+ " ORDER BY "+ productQueryParams.getOrderBy()+" "+productQueryParams.getSort();
@@ -94,7 +80,6 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Integer createProduct(ProductRequest productRequest) {
-
 
         String sql="INSERT INTO product (product_name,category,image_url,price," +
                 "stock,description,created_date,last_modified_date)" +
@@ -152,6 +137,21 @@ public class ProductDaoImpl implements ProductDao {
         map.put("productId", productId);
 
         namedParameterJdbcTemplate.update(sql,map);
+    }
+
+    private String addFilteringSql(String sql,Map<String,Object> map,ProductQueryParams productQueryParams) {
+
+        //查詢條件
+        if(productQueryParams.getCategory()!=null){
+            sql = sql + " AND category=:category";
+            map.put("category",productQueryParams.getCategory().name());//categore是ENUM類型，要用此方法轉為String
+        }
+        if(productQueryParams.getSearch()!=null){
+            sql = sql + " AND product_name LIKE :search";
+            map.put("search","%" + productQueryParams.getSearch() + "%");
+        }
+
+        return sql;
     }
 
 
