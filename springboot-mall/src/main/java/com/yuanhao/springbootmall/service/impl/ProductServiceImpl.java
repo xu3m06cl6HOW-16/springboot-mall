@@ -1,9 +1,10 @@
-package com.yuanhao.springbootmall.service;
+package com.yuanhao.springbootmall.service.impl;
 
 import com.yuanhao.springbootmall.dao.ProductDao;
 import com.yuanhao.springbootmall.dto.ProductQueryParams;
 import com.yuanhao.springbootmall.dto.ProductRequest;
 import com.yuanhao.springbootmall.model.Product;
+import com.yuanhao.springbootmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
