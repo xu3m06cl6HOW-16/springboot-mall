@@ -39,4 +39,22 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Integer userId) {
         return userDao.getUserById(userId);
     }
+
+    @Override
+    public User login(UserRegisterRequest userRegisterRequest) {
+        User user=userDao.getUserByEmail(userRegisterRequest.getEmail());
+
+        if(user ==null){
+            log.warn("This email {} has not been registered.",userRegisterRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        if(user.getPassWord().equals(userRegisterRequest.getPassword())){
+            
+            return user;
+        }else{
+            log.warn("The password is incorrect.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }

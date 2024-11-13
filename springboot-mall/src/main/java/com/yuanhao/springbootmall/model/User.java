@@ -11,7 +11,7 @@ public class User {
 
     @JsonIgnore
     private String passWord;
-    
+
     private Date createdDate;
     private Date lastModifiedDate;
 
