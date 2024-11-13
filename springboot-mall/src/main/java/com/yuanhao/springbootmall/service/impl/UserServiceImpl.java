@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
             log.warn("This email {} has not been registered.",userRegisterRequest.getEmail());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        //使用 MD5 生成密碼的湊值
+        //使用 MD5 生成密碼的湊值(彩虹表破解，可以用加鹽(Salt)方式強化)
         String hashedPassword = DigestUtils.md5DigestAsHex(userRegisterRequest.getPassword().getBytes());
 
         //比較密碼
