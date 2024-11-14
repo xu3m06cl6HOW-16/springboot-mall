@@ -24,8 +24,12 @@ public class OrderController {
     @PostMapping("users/{userId}/orders")
     public ResponseEntity<?> createdOrder(@PathVariable Integer userId,
                                           @RequestBody @Valid CreatedOrderRequest createdOrderRequest) {
+        //插入數據，回傳訂單編號
         Integer orderId=orderService.createOrder(userId,createdOrderRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderId);
+        //訂單編號 查找訂單細項
+        Order order =orderService.getOrderById(orderId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 }

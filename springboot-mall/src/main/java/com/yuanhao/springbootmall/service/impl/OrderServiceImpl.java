@@ -4,6 +4,7 @@ import com.yuanhao.springbootmall.dao.OrderDao;
 import com.yuanhao.springbootmall.dao.ProductDao;
 import com.yuanhao.springbootmall.dto.BuyItem;
 import com.yuanhao.springbootmall.dto.CreatedOrderRequest;
+import com.yuanhao.springbootmall.model.Order;
 import com.yuanhao.springbootmall.model.OrderItem;
 import com.yuanhao.springbootmall.model.Product;
 import com.yuanhao.springbootmall.service.OrderService;
@@ -34,14 +35,14 @@ public class OrderServiceImpl implements OrderService {
             Product product =productDao.getProductById(buyItem.getProductId());
 
             //計算總價錢
-            int amout = buyItem.getQuantity() * product.getPrice();
-            totalAmout = totalAmout+amout;
+            int amount = buyItem.getQuantity() * product.getPrice();
+            totalAmout = totalAmout+amount;
 
             //轉換BuyItem for OrderItem
             OrderItem orderItem = new OrderItem();
             orderItem.setProductId(buyItem.getProductId());
             orderItem.setQuantity(buyItem.getQuantity());
-            orderItem.setAmout(amout);
+            orderItem.setAmount(amount);
 
             orderItemList.add(orderItem);
 
@@ -51,5 +52,17 @@ public class OrderServiceImpl implements OrderService {
         orderDao.createOrderItems(orderId,orderItemList);
 
         return orderId;
+    }
+
+    @Override
+    public Order getOrderById(Integer orderId) {
+
+        Order order =orderDao.getOrderById(orderId);
+
+        List<OrderItem> orderItemList=orderDao.getOrderItemByOrderId(orderId);
+
+        order.setOrderItems(orderItemList);
+
+        return order;
     }
 }

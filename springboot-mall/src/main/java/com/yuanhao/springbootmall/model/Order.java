@@ -1,14 +1,17 @@
 package com.yuanhao.springbootmall.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 
     private Integer orderId;
     private Integer userId;
-    private Integer totalAmout;
+    private Integer totalAmount;
     private Date createdDate;
     private Date lastModifiedDate;
+
+    private List<OrderItem> orderItems;
 
     public Integer getOrderId() {
         return orderId;
@@ -26,12 +29,12 @@ public class Order {
         this.userId = userId;
     }
 
-    public Integer getTotalAmout() {
-        return totalAmout;
+    public Integer getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setTotalAmout(Integer totalAmout) {
-        this.totalAmout = totalAmout;
+    public void setTotalAmount(Integer totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public Date getCreatedDate() {
@@ -48,5 +51,13 @@ public class Order {
 
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }
