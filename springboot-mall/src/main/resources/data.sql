@@ -9,3 +9,9 @@ INSERT INTO product (product_name, category, image_url, price, stock, descriptio
 
 
 -- User
+
+--oredr
+INSERT INTO `order` (user_id, total_amount, created_date, last_modified_date) VALUES (6, 100110, '2022-06-02 16:51:49', '2022-06-02 16:51:49');
+INSERT INTO order_item (order_id, product_id, quantity, amount) VALUES (1, 4, 2, 60);
+INSERT INTO order_item (order_id, product_id, quantity, amount) VALUES (1, 6, 5, 50);
+INSERT INTO order_item (order_id, product_id, quantity, amount) VALUES (1, 7, 1, 100000);
